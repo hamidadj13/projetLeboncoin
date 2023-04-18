@@ -13,6 +13,11 @@
             // Je sais que toujours le dossier qui contiendra les vues et celui Views
             // $this->parent = construit le chemin en auto vers le dossier contenant les views...
             $this->parent = str_replace("\Controllers", "",__DIR__)."\\Views\\";
+
+            $modele = new Model();
+            $GLOBALS["locations"] = $modele->getAllLocations();
+            $GLOBALS["categories"] = $modele->getAllCategories();
+            $GLOBALS["lesAnnonces"] = $modele->getAllAnnonces();
           
             if($viewName != NULL){
                 $this->loadView();
@@ -32,16 +37,18 @@
         public function getResultSearch()
         {
 
-            if(isset($_POST) && !empty($_POST)){
+            if(isset($_POST) && !empty($_POST))
+            {
                 // Form submitted as well
                 $category = $_POST['category'];
-                $what = "%".$_POST['what']."%";
+                $critere = "%".trim(htmlentities($_POST['what']))."%";
                 $location = $_POST['location'];
 
                 // Call model to check if there is some similar post's
 
                 $model = new Model();
-                $GLOBALS['resultSearch'] = $model->getAnnoncesCritaria($category, $what, $location);
+                $GLOBALS['resultSearch'] = $res = $model->getAnnoncesCritaria($critere, $category, $location);
+                var_dump($res);
 
                 $this->viewName = 'resultsearch';
                 $this->loadView();

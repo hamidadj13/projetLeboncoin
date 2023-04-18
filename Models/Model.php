@@ -402,32 +402,45 @@
         }
 
 
-        //Stand by
-        public function getAnnoncesCritaria($cat, $what, $loc)
+        
+        //Récupère des annonces selon des critères
+        public function getAnnoncesCritaria($critere, $cat, $loc)
         {
             // connect to BDD
             $this->connectToBDD();
             
-            if($this->connection != NULL){ // je suis co
+            if($this->connection != NULL)
+            {
                 $queryString = "SELECT *
                 FROM annonce AS a
                 INNER JOIN localisation as l
                 ON a.codeLocalisation = l.codeDep
                 INNER JOIN categorie as c
                 ON a.idCategorie = c.idCategorie
-                -- CRITERES
-                WHERE lower(a.titre) LIKE :what -- contains start with end with or contains
-                OR l.codeDep = :loc
-                OR c.idCategorie = :cat";
+                WHERE lower(a.titre) LIKE ?".
+                ($cat === '' ? " " : " AND c.idCategorie = ?").
+                ($loc === '' ? " " : " AND l.codeDep = ?");
 
-                $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-                $queryPrepared->execute(array("what"=>$what, "loc"=>$loc, "cat"=>$cat));
-                $resultSet = $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
-
-                if(!empty($resultSet)){
-                    return $resultSet;
+                
+                $tab = [$critere];
+                if ($cat !== '') 
+                {
+                    $tab[] = $cat;
+                }
+                if ($loc !== '') 
+                {
+                    $tab[] = $loc;
                 }
 
+                $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+                $queryPrepared->execute($tab);
+                $resultSet = $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
+
+
+                if(!empty($resultSet))
+                {
+                    return $resultSet;
+                }
                 return array();
             }
             return NULL;
@@ -521,5 +534,29 @@
             }
         }
 
+        //Récupération des annonces en favoris d'un utilisateur
+        public function getUserFavoris($idU)
+        {
+            // J'ouvre la connexion vers ma base de données...
+            $this->connectToBDD();
+            if($this->connection != NULL)
+            {
+                // Connexion vers la base de données OK !
+                $queryString = "SELECT * FROM `favoris` WHERE idUtilisateur = ?";             
+                $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+                $queryPrepared->execute(array($idU));
+                $resultSet = $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
+                if(count($resultSet) != 0)
+                {
+                    $tableau = [];
+                    foreach ($resultSet as $key => $value) 
+                    {
+                        $tableau[] = $this->getAnnonceById($value["idA"]);
+                    }
+                    return $tableau;
+                }
+                return FALSE;
+            }
+        }
 
     }

@@ -16,7 +16,6 @@
             $modele = new Model();
             $GLOBALS["locations"] = $modele->getAllLocations();
             $GLOBALS["categories"] = $modele->getAllCategories();
-            $GLOBALS["TopCategory"] = $modele->getTopCategory();
             $GLOBALS["lesAnnonces"] = $modele->getAllAnnonces();
             $this->loadView();
 

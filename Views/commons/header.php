@@ -65,7 +65,6 @@
         .form-floating{
             position: relative;
         }
-        
 
         #icone-mdp-connexion, #icone-pwd, #icone-cpwd, #icone-apwd{
             display: inline;
@@ -104,13 +103,13 @@
                         <!--<a href="<?php //echo $GLOBALS['__HOST__'];?>" class="nav-item nav-link active">Accueil</a>-->
                         <?php if(isset($_SESSION["idU"]) && !empty($_SESSION)){ ?> 
                         
-                            <a href="<?php echo $GLOBALS['__HOST__']?>mes-annonces" class="nav-link"><i class="fa fa-list text-primary me-1"></i>Mes annonces</a>
+                            <a href="<?php echo $GLOBALS['__HOST__']?>mes-annonces" class="nav-link "><i class="fa fa-list text-primary me-1"></i>Mes annonces</a>
                             <a href="<?php echo $GLOBALS['__HOST__']?>mes-favoris" class="nav-link"><i class="fa fa-heart text-primary me-1"></i> Mes favoris</a>
                             <a href="<?php echo $GLOBALS['__HOST__']?>messages" class="nav-link"><i class="fa fa-comments text-primary me-1" aria-hidden="true"></i> Mes messages</a>
                             <!-- <a href="<?php //echo $GLOBALS['__HOST__']?>log-out" class="nav-link"><i class="fa fa-user text-primary me-1"></i> Se déconnecter</a> -->
                         
                             <li class="nav-item dropdown my-auto">
-                                <h6 class="nav-link dropdown-toggle my-auto" data-bs-toggle="dropdown" aria-expanded="false" style="text-transform: none;"><?= $_SESSION["prenom"]. " " .$_SESSION["nom"] ?></h6>
+                                <h6 class="nav-link dropdown-toggle my-auto" data-bs-toggle="dropdown" aria-expanded="false" style="text-transform: none;"><b><?= $_SESSION["prenom"]. " " .$_SESSION["nom"] ?></b></h6>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="<?php echo $GLOBALS['__HOST__']?>mon-profil"><i class="fa fa-user me-2"></i><b>Mon profil</b></a></li>
                                     <div class="dropdown-divider"></div>

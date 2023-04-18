@@ -111,23 +111,26 @@
                         $a = $urlSplited[(count($urlSplited) -1)]; // On accède ensuite à l'id de l'annonce
                         $GLOBALS['lid'] = (int)$a;
 
+                        
                         $controller = new AnnonceController();
                         $controller->detailAnnonce($GLOBALS["lid"]);
                         break; 
                         
-                    case preg_match("/ajout-favoris.*/", strtolower($root)) ? true : false: // TODO:
+                    case preg_match("/action-favoris.*/", strtolower($root)) ? true : false: // TODO:
                         
                         $urlSplited = explode('/', $_SERVER['REQUEST_URI']) ; //On divise le chemin selon le critère "/"
-                        $idU = $urlSplited[(count($urlSplited) -2)]; // On accède ensuite à l'id de l'utilisateur
-                        $idA = $urlSplited[(count($urlSplited) -1)]; // On accède ensuite à l'id de l'annonce
+                        $idU = $urlSplited[(count($urlSplited) -3)]; // On accède ensuite à l'id de l'utilisateur
+                        $idA = $urlSplited[(count($urlSplited) -2)]; // On accède ensuite à l'id de l'annonce
+                        $route = $urlSplited[(count($urlSplited) -1)]; // On accède à la route pour la redirection
 
+                        
                         $idU = (int)$idU;
                         $idA = (int)$idA;
 
                         
                         
                         $controller = new FavorisController();
-                        $controller->actionSurFavoris($idU, $idA);
+                        $controller->actionSurFavoris($idU, $idA, $route);
                         break;    
 
 
@@ -137,10 +140,9 @@
                         break;
 
                     case "mes-favoris":
-                        $controller = new AnnonceController();
-                        $controller->mesFavoris();
+                        $controller = new FavorisController();
+                        $controller->favorisUtilisateur($_SESSION["idU"]);
                         break;
-
 
                     case preg_match('/search?.*/', strtolower($root)) ? true : false: // TODO:
                         $controller = new SearchController();

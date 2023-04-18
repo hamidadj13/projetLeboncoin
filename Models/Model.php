@@ -408,7 +408,8 @@
             // connect to BDD
             $this->connectToBDD();
             
-            if($this->connection != NULL){ // je suis co
+            if($this->connection != NULL)
+            {
                 $queryString = "SELECT *
                 FROM annonce AS a
                 INNER JOIN localisation as l
@@ -424,10 +425,10 @@
                 $queryPrepared->execute(array("what"=>$what, "loc"=>$loc, "cat"=>$cat));
                 $resultSet = $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
 
-                if(!empty($resultSet)){
+                if(!empty($resultSet))
+                {
                     return $resultSet;
                 }
-
                 return array();
             }
             return NULL;
@@ -521,5 +522,29 @@
             }
         }
 
+        //Récupération des annonces en favoris d'un utilisateur
+        public function getUserFavoris($idU)
+        {
+            // J'ouvre la connexion vers ma base de données...
+            $this->connectToBDD();
+            if($this->connection != NULL)
+            {
+                // Connexion vers la base de données OK !
+                $queryString = "SELECT * FROM `favoris` WHERE idUtilisateur = ?";             
+                $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+                $queryPrepared->execute(array($idU));
+                $resultSet = $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
+                if(count($resultSet) != 0)
+                {
+                    $tableau = [];
+                    foreach ($resultSet as $key => $value) 
+                    {
+                        $tableau[] = $this->getAnnonceById($value["idA"]);
+                    }
+                    return $tableau;
+                }
+                return FALSE;
+            }
+        }
 
     }

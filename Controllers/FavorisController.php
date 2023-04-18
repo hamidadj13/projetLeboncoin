@@ -34,10 +34,10 @@ include_once(str_replace("\Controllers", "",__DIR__)."\\Models\\Model.php");
             require_once($this->parent."commons\\footer.php");
         }
 
-        public function actionSurFavoris($idU, $idA)
+        public function actionSurFavoris($idU, $idA, $route)
         {
             
-            if ((is_numeric($idU)) && (is_numeric($idA)))
+            if ((is_numeric($idU)) && (is_numeric($idA)) && ($route != NULL))
             {
                 $vraiIdU = $idU / 3645;
                 $vraiIdA  = $idA / 6895;
@@ -64,13 +64,9 @@ include_once(str_replace("\Controllers", "",__DIR__)."\\Models\\Model.php");
                     $model = new Model();
                     $test = $model->checkAnnonceInUserFavoris($vraiIdU, $vraiIdA );
 
-                    
-
                     if($test == TRUE)
                     {
                         $action = $model->insertFavoris($vraiIdU, $vraiIdA );
-
-                        //var_dump($action); die();
 
                         if ($action == TRUE)
                         {
@@ -91,22 +87,44 @@ include_once(str_replace("\Controllers", "",__DIR__)."\\Models\\Model.php");
                     }
                     elseif($test == FALSE)
                     {
-                        $action = $model->deleteFavoris($vraiIdU, $vraiIdA );
+                        $action = $model->deleteFavoris($vraiIdU, $vraiIdA);
+                        
                         if ($action == TRUE)
                         {
                             $_SESSION["message"] = "Cette annonce a été supprimée de vos favoris avec succès !! ";
                             $_SESSION["status"] = "success";
                             $_SESSION["icone"] = "fa-check-circle";
-                            header(sprintf("Location: %s%s/%s",$GLOBALS['__HOST__'], "detail", ($vraiIdA * 6895)));
-                            exit();
+                            if ($route == "de") 
+                            {
+                                header(sprintf("Location: %s%s/%s",$GLOBALS['__HOST__'], "detail", ($vraiIdA * 6895)));
+                                exit();
+                            } 
+                            else if ($route == "fa")
+                            {
+                                header(sprintf("Location: %s%s",$GLOBALS['__HOST__'], "mes-favoris"));
+                                exit();
+                            }
+                            else
+                            {
+
+                            }
                         }
                         else
                         {
                             $_SESSION["message"] = "Une erreur s'est produite lors de la suppression de cette annonce en favoris !! ";
                             $_SESSION["status"] = "danger";
                             $_SESSION["icone"] = "fa-exclamation-circle";
-                            header(sprintf("Location: %s%s/%s",$GLOBALS['__HOST__'], "detail", ($vraiIdA * 6895)));
-                            exit();
+                            
+                            if ($route == "de") 
+                            {
+                                header(sprintf("Location: %s%s/%s",$GLOBALS['__HOST__'], "detail", ($vraiIdA * 6895)));
+                                exit();
+                            } 
+                            else if ($route == "fa")
+                            {
+                                header(sprintf("Location: %s%s",$GLOBALS['__HOST__'], "mes-favoris"));
+                                exit();
+                            }
                         }
                     }
                     else 
@@ -127,5 +145,45 @@ include_once(str_replace("\Controllers", "",__DIR__)."\\Models\\Model.php");
                 header(sprintf("Location: %s",$GLOBALS['__HOST__']));
                 exit();
             }
+        }
+
+        public function favorisUtilisateur($idU)
+        {
+            if ((isset($idU)) && ($idU != NULL)) 
+            {
+                $model = new Model();
+                $GLOBALS["mesFavoris"] = $res = $model->getUserFavoris($idU);
+                //var_dump($res);
+                //die();
+
+                if ($res) 
+                {
+                    $this->viewName = "favoris";
+                    $this->loadView();
+
+                    // header(sprintf("Location: %s%s",$GLOBALS['__HOST__'], "mes-favoris"));
+                    // exit();
+                } 
+                else 
+                {
+                    $_SESSION["message"] = "Oups! Vous ne disposez d'aucun favoris pour le moment.";
+                    $_SESSION["status"] = "info";
+                    $_SESSION["icone"] = "fa-info-circle";
+                    $this->viewName = "favoris";
+                    $this->loadView();
+
+                    // header(sprintf("Location: %s%s",$GLOBALS['__HOST__'], "mes-favoris"));
+                    // exit();
+                }
+            } 
+            else 
+            {
+                $_SESSION["message"] = "Veuillez vous connecter pour accéder à vos favoris.";
+                $_SESSION["status"] = "danger";
+                $_SESSION["icone"] = "fa-exclamation-circle";
+                header(sprintf("Location: %s%s",$GLOBALS['__HOST__'], "connexion"));
+                exit();
+            }
+            
         }
     }

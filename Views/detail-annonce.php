@@ -46,7 +46,7 @@
                                                     //Si s'il a déja cette ennonce en favoris, le coeur est rempli
                                                     if(($GLOBALS["favoris"]) == FALSE): ?>
                                                         <span class="favorite-button fs-1">
-                                                            <a class="btn btn-outline-secondary" href="<?php echo sprintf("%sajout-favoris/%s/%s",$GLOBALS["__HOST__"], ($_SESSION["idU"] * 3645), ($GLOBALS["lAnnonce"]["idAnnonce"] * 6895))?>" style="display: block; margin: auto; width: 30%">
+                                                            <a class="btn btn-outline-secondary" href="<?php echo sprintf("%saction-favoris/%s/%s/de",$GLOBALS["__HOST__"], ($_SESSION["idU"] * 3645), ($GLOBALS["lAnnonce"]["idAnnonce"] * 6895))?>" style="display: block; margin: auto; width: 30%">
                                                                 <i style="color: #ff0000" class="fa-solid fa-heart"></i> 
                                                             </a>
                                                         </span>
@@ -54,7 +54,7 @@
                                                     <!-- S'il n'a pas enccore cette ennonce en favoris, le coeur est vide -->    
                                                     <?php else: ?>
                                                         <span class="favorite-button fs-1">
-                                                            <a class="btn btn-outline-secondary" href="<?php echo sprintf("%sajout-favoris/%s/%s",$GLOBALS["__HOST__"], ($_SESSION["idU"] * 3645), ($GLOBALS["lAnnonce"]["idAnnonce"] * 6895))?>" style="display: block; margin: auto; width: 30%">
+                                                            <a class="btn btn-outline-secondary" href="<?php echo sprintf("%saction-favoris/%s/%s/de",$GLOBALS["__HOST__"], ($_SESSION["idU"] * 3645), ($GLOBALS["lAnnonce"]["idAnnonce"] * 6895))?>" style="display: block; margin: auto; width: 30%">
                                                                 <i style="color: #ff0000" class="fa-regular fa-heart"></i> 
                                                             </a>
                                                         </span>

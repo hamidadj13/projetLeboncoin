@@ -70,22 +70,22 @@
 
         <div class="container-fluid  mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
                 <div class="container">
-                    <div class="col-md-12 d-flex flex-wrap justify-content-evenly">
+                    <div class="col-md-12 d-flex flex-nowrap justify-content-evenly">
                         <div class="row g-2">
                             <?php foreach ($GLOBALS["lesAnnonces"] as $annonce) { ?>
                                 <div class="col-md-4 mt-4">
-                                <div class="card">
-                                    <img style="max-height: 200px; min-height: 200px" src="<?php echo sprintf("%sAssets/%s", $GLOBALS['__HOST__'], $annonce['photo']) ?>" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div style="height: fit-content; width: fit-content; max-width: 60%"><h5 class="card-title"><?= $annonce['titre'] ?></h5></div>
-                                            <div style="height: fit-content; width: fit-content"><span class='badge' style="display: inline-block; margin: auto; height:fit-content; width:fit-content; text-align:center; padding: 5px 10px"><b style="font-size: 1.2rem;"><?= $annonce["prix"] ?> €</b> </span></div>
+                                    <div class="card " style="min-height: 100%">
+                                        <img style="max-height: 200px; min-height: 200px" src="<?php echo sprintf("%sAssets/%s", $GLOBALS['__HOST__'], $annonce['photo']) ?>" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div style="height: fit-content; width: fit-content; max-width: 60%"><h5 class="card-title"><?= $annonce['titre'] ?></h5></div>
+                                                <div style="height: fit-content; width: fit-content"><span class='badge' style="display: inline-block; margin: auto; height:fit-content; width:fit-content; text-align:center; padding: 5px 10px"><b style="font-size: 1.2rem;"><?= $annonce["prix"] ?> €</b> </span></div>
+                                            </div>
+                                            <p class="card-text"><?= $annonce["description"] ?></p>
+                                            <a href="<?php echo sprintf("%s%s/%s", $GLOBALS['__HOST__'], "detail", ($annonce["idAnnonce"]) * 6895) ?>" class="btn btn-primary">Détails</a>
                                         </div>
-                                        <p class="card-text"><?= $annonce["description"] ?></p>
-                                        <a href="<?php echo sprintf("%s%s/%s", $GLOBALS['__HOST__'], "detail", ($annonce["idAnnonce"]) * 6895) ?>" class="btn btn-primary">Détails</a>
                                     </div>
                                 </div>
-                            </div>
                             <?php }  ?>
                         </div>
                     </div>

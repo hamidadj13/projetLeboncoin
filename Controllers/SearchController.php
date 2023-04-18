@@ -32,11 +32,13 @@
         public function getResultSearch()
         {
 
-            if(isset($_POST) && !empty($_POST)){
+            if(isset($_POST) && !empty($_POST))
+            {
                 // Form submitted as well
                 $category = $_POST['category'];
                 $what = "%".$_POST['what']."%";
                 $location = $_POST['location'];
+                var_dump($_POST);die();
 
                 // Call model to check if there is some similar post's
 

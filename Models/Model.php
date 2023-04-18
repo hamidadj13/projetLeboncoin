@@ -402,8 +402,9 @@
         }
 
 
-        //Stand by
-        public function getAnnoncesCritaria($cat, $what, $loc)
+        
+        //Récupère des annonces selon des critères
+        public function getAnnoncesCritaria($critere, $cat, $loc)
         {
             // connect to BDD
             $this->connectToBDD();
@@ -416,14 +417,25 @@
                 ON a.codeLocalisation = l.codeDep
                 INNER JOIN categorie as c
                 ON a.idCategorie = c.idCategorie
-                -- CRITERES
-                WHERE lower(a.titre) LIKE :what -- contains start with end with or contains
-                OR l.codeDep = :loc
-                OR c.idCategorie = :cat";
+                WHERE lower(a.titre) LIKE ?".
+                ($cat === '' ? " " : " AND c.idCategorie = ?").
+                ($loc === '' ? " " : " AND l.codeDep = ?");
+
+                
+                $tab = [$critere];
+                if ($cat !== '') 
+                {
+                    $tab[] = $cat;
+                }
+                if ($loc !== '') 
+                {
+                    $tab[] = $loc;
+                }
 
                 $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-                $queryPrepared->execute(array("what"=>$what, "loc"=>$loc, "cat"=>$cat));
+                $queryPrepared->execute($tab);
                 $resultSet = $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
+
 
                 if(!empty($resultSet))
                 {

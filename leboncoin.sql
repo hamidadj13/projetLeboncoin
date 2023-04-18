@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 27 mars 2023 à 08:11
+-- Généré le : mar. 18 avr. 2023 à 20:06
 -- Version du serveur : 5.7.36
 -- Version de PHP : 8.1.0
 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `annonce` (
   KEY `FK_localisation_annonce` (`codeLocalisation`),
   KEY `FK_cat_annonce` (`idCategorie`),
   KEY `fk_user_annonce` (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `annonce`
@@ -50,9 +50,9 @@ CREATE TABLE IF NOT EXISTS `annonce` (
 
 INSERT INTO `annonce` (`idAnnonce`, `titre`, `prix`, `description`, `photo`, `dateAjout`, `idCategorie`, `codeLocalisation`, `idUser`) VALUES
 (4, 'Maillot du PSG', 25, 'Test', 'img/annonce/Maillot du PSG.png', '2023-03-21 12:42:09', 7, '15', 1),
-(5, 'Livre Naruto', 34, 'Ceci est un livre du mangas Naruto', 'img/annonce/Livre Naruto.png', '2023-03-21 12:57:18', 5, '69', 1),
-(6, 'Livre Naruto', 34, 'Ceci est un livre du mangas Naruto', 'img/annonce/Livre Naruto.png', '2023-03-21 12:58:07', 5, '69', 1),
-(7, 'Samsung S20', 300, 'Ceci est un t&eacute;l&eacute;phone de marque Samsung.', 'img/annonce/Samsung S20.png', '2023-03-25 22:45:45', 8, '94', 5);
+(5, 'Livre Naruto', 50, 'Ceci est un livre du mangas Naruto.', 'img/annonce/Livre Naruto.png', '2023-03-21 12:57:18', 5, '59', 1),
+(7, 'Samsung S20', 300, 'Ceci est un t&eacute;l&eacute;phone de marque Samsung.', 'img/annonce/Samsung S20.png', '2023-03-25 22:45:45', 8, '94', 5),
+(8, 'iPhone 12', 650, 'Ceci est un t&eacute;l&eacute;phone', 'img/annonce/iPhone 12.png', '2023-03-30 14:33:29', 7, '92', 1);
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,15 @@ CREATE TABLE IF NOT EXISTS `favoris` (
   `idUtilisateur` int(5) NOT NULL,
   `idA` int(5) NOT NULL,
   PRIMARY KEY (`idFavoris`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `favoris`
+--
+
+INSERT INTO `favoris` (`idFavoris`, `idUtilisateur`, `idA`) VALUES
+(11, 1, 4),
+(13, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -222,12 +230,12 @@ INSERT INTO `localisation` (`codeDep`, `dep`) VALUES
 
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE IF NOT EXISTS `message` (
-  `idsender` int(11) NOT NULL,
+  `idSender` int(11) NOT NULL,
   `idReceiver` int(11) NOT NULL,
-  `Content` text NOT NULL,
   `idAnnonce` int(11) NOT NULL,
+  `Content` text NOT NULL,
   `deliveredTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  KEY `fk_messageUser` (`idsender`),
+  KEY `fk_messageUser` (`idSender`),
   KEY `fk_messageReceiver` (`idReceiver`),
   KEY `fk_annonce` (`idAnnonce`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -285,8 +293,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`idU`, `nom`, `prenom`, `adresseEmail`, `telephone`, `mdp`, `created_at`) VALUES
-(1, 'OKETOKOUN', 'Hamid', 'hamid@leboncoin.fr', '0930042543', 'a65ec3cef8aebc6b4e73c500a92d45ce', '2023-03-16 14:25:32'),
-(5, 'DUPONT', 'Antoine', 'antoinedupont@yahoo.fr', '0702030405', 'a65ec3cef8aebc6b4e73c500a92d45ce', '2023-03-17 09:44:18');
+(1, 'OKETOKOUN', 'Hamid', 'hamid@leboncoin.fr', '0630042543', 'a65ec3cef8aebc6b4e73c500a92d45ce', '2023-03-16 14:25:32'),
+(5, 'DUPONT', 'Antoine', 'antoinedupont@outlook.fr', '0702030405', '9d21bfc41c05ebbc779000c456c1097c', '2023-03-17 09:44:18');
 
 --
 -- Contraintes pour les tables déchargées
@@ -305,8 +313,8 @@ ALTER TABLE `annonce`
 --
 ALTER TABLE `message`
   ADD CONSTRAINT `fk_annonce` FOREIGN KEY (`idAnnonce`) REFERENCES `annonce` (`idAnnonce`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_messageReceiver` FOREIGN KEY (`idReceiver`) REFERENCES `useraccount` (`idUser`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_messageUser` FOREIGN KEY (`idsender`) REFERENCES `useraccount` (`idUser`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_messageReceiver` FOREIGN KEY (`idReceiver`) REFERENCES `users` (`idU`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_messageUser` FOREIGN KEY (`idSender`) REFERENCES `users` (`idU`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

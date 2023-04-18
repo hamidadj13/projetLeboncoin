@@ -5,7 +5,6 @@
     include(__DIR__."\\Controllers\\AnnonceController.php");
     include(__DIR__."\\Controllers\\FavorisController.php");
     include(__DIR__."\\Controllers\\SearchController.php");
-    include(__DIR__."\\Controllers\\UpdateController.php");
 
     class Index{
 
@@ -104,6 +103,10 @@
                         $controller = new AnnonceController();
                         $controller->modifAnnonce();
                         break; 
+
+                    case "abc":
+                        $controller = new AccountController("algo");
+                        break;
 
                     
                     case preg_match("/detail.*/", strtolower($root)) ? true : false:// TODO:

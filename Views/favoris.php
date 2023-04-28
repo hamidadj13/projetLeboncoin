@@ -54,18 +54,24 @@
                                                     <tbody>
                                                     <?php  foreach ($GLOBALS["mesFavoris"] as $ligne => $unFavoris) { ?>
                                                         <tr class="">
-                                                            <td><img src="<?php echo sprintf("%sAssets/%s", $GLOBALS['__HOST__'], $unFavoris['photo']) ?>" alt="image" style="max-height: 100px; max-width: 100px;"></td>
-                                                            <td><?= $unFavoris["titre"] ?></td>
-                                                            <td><?= $unFavoris["prix"] ?> €</td>
-                                                            <td>
-                                                                <a style="padding: .6rem 1rem" class="btn btn-light" href="<?php echo sprintf("%saction-favoris/%s/%s/fa",$GLOBALS["__HOST__"], ($_SESSION["idU"] * 3645), ($unFavoris["idAnnonce"] * 6895))?>">
-                                                                    <i class="fa-solid fa-heart text-primary"></i>
-                                                                </a>
-                                                                <a style="padding: .4rem 1.5rem; font-size: .9rem" href="<?php echo sprintf("%s%s/%s", $GLOBALS['__HOST__'], "detail", ($unFavoris["idAnnonce"]) * 6895) ?>" class="btn btn-inverse-warning mx-2">Voir</a>
-                                                            </td>
+                                                            <?php if ($unFavoris == NULL) { ?>
+                                                                <td colspan="4">Cette annonce a été supprimée par son propriétaire</td>
+                                                            
+                                                            <?php } else { ?>
+                                                                <td><img src="<?php echo sprintf("%sAssets/%s", $GLOBALS['__HOST__'], $unFavoris['photo']) ?>" alt="image" style="max-height: 100px; max-width: 100px;"></td>
+                                                                <td><?= $unFavoris["titre"] ?></td>
+                                                                <td><?= $unFavoris["prix"] ?> €</td>
+                                                                <td>
+                                                                    <a style="padding: .6rem 1rem" class="btn btn-light" href="<?php echo sprintf("%saction-favoris/%s/%s/fa",$GLOBALS["__HOST__"], ($_SESSION["idU"] * 3645), ($unFavoris["idAnnonce"] * 6895))?>">
+                                                                        <i class="fa-solid fa-heart text-primary"></i>
+                                                                    </a>
+                                                                    <a style="padding: .4rem 1.5rem; font-size: .9rem" href="<?php echo sprintf("%s%s/%s", $GLOBALS['__HOST__'], "detail", ($unFavoris["idAnnonce"]) * 6895) ?>" class="btn btn-inverse-warning mx-2">Voir</a>
+                                                                </td>
+                                                            <?php } ?>
                                                         </tr>
 
                                                     <?php } ?>
+
                                                     </tbody>
                                                 </table>
                                             </div>

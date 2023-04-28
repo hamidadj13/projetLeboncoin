@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 18 avr. 2023 à 20:06
+-- Généré le : ven. 28 avr. 2023 à 14:56
 -- Version du serveur : 5.7.36
 -- Version de PHP : 8.1.0
 
@@ -84,6 +84,22 @@ INSERT INTO `categorie` (`idCategorie`, `libelle`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `conversation`
+--
+
+DROP TABLE IF EXISTS `conversation`;
+CREATE TABLE IF NOT EXISTS `conversation` (
+  `idConversation` int(5) NOT NULL AUTO_INCREMENT,
+  `idAnnonce` int(5) NOT NULL,
+  `idUtilisateur` int(5) NOT NULL,
+  PRIMARY KEY (`idConversation`),
+  KEY `fk_ann_conv` (`idAnnonce`),
+  KEY `fk_util_conv` (`idUtilisateur`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `favoris`
 --
 
@@ -93,15 +109,14 @@ CREATE TABLE IF NOT EXISTS `favoris` (
   `idUtilisateur` int(5) NOT NULL,
   `idA` int(5) NOT NULL,
   PRIMARY KEY (`idFavoris`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `favoris`
 --
 
 INSERT INTO `favoris` (`idFavoris`, `idUtilisateur`, `idA`) VALUES
-(11, 1, 4),
-(13, 1, 5);
+(11, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -230,45 +245,14 @@ INSERT INTO `localisation` (`codeDep`, `dep`) VALUES
 
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE IF NOT EXISTS `message` (
-  `idSender` int(11) NOT NULL,
-  `idReceiver` int(11) NOT NULL,
-  `idAnnonce` int(11) NOT NULL,
-  `Content` text NOT NULL,
-  `deliveredTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  KEY `fk_messageUser` (`idSender`),
-  KEY `fk_messageReceiver` (`idReceiver`),
-  KEY `fk_annonce` (`idAnnonce`)
+  `idM` int(5) NOT NULL AUTO_INCREMENT,
+  `idSender` int(5) NOT NULL,
+  `idReceiver` int(5) NOT NULL,
+  `idC` int(5) NOT NULL,
+  `contenu` text NOT NULL,
+  `dateEnvoi` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idM`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `useraccount`
---
-
-DROP TABLE IF EXISTS `useraccount`;
-CREATE TABLE IF NOT EXISTS `useraccount` (
-  `idUser` int(11) NOT NULL AUTO_INCREMENT,
-  `userName` varchar(50) NOT NULL,
-  `Tel` varchar(10) NOT NULL,
-  `Email` varchar(50) NOT NULL,
-  `Password` varchar(100) NOT NULL,
-  `AccountCreationDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idUser`),
-  UNIQUE KEY `Email` (`Email`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `useraccount`
---
-
-INSERT INTO `useraccount` (`idUser`, `userName`, `Tel`, `Email`, `Password`, `AccountCreationDate`) VALUES
-(1, 'alexis', '0665879541', 'alexis@leboncoin.com', 'powerisbetter', '2022-11-22 18:01:58'),
-(3, 'Mohamed', '0665879541', 'mohamed@leboncoin.com', 'nani?', '2022-11-22 19:08:20'),
-(4, 'joel', '0123456789', 'joel@ndjate.fr', 'ilovemakima', '2022-11-26 14:17:35'),
-(6, 'hamid', '0987654321', 'hamid@leboncoin.fr', 'test', '2022-11-26 14:21:10'),
-(7, 'sanctifie', '6666666666', 'canctifie@bre.com', 'lol', '2022-11-26 14:21:10'),
-(8, 'test', '0102030405', 'test@gmail.com', 'Azerty123:', '2023-03-14 11:57:40');
 
 -- --------------------------------------------------------
 
@@ -309,12 +293,11 @@ ALTER TABLE `annonce`
   ADD CONSTRAINT `fk_user_annonce` FOREIGN KEY (`idUser`) REFERENCES `users` (`idU`);
 
 --
--- Contraintes pour la table `message`
+-- Contraintes pour la table `conversation`
 --
-ALTER TABLE `message`
-  ADD CONSTRAINT `fk_annonce` FOREIGN KEY (`idAnnonce`) REFERENCES `annonce` (`idAnnonce`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_messageReceiver` FOREIGN KEY (`idReceiver`) REFERENCES `users` (`idU`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_messageUser` FOREIGN KEY (`idSender`) REFERENCES `users` (`idU`) ON DELETE CASCADE;
+ALTER TABLE `conversation`
+  ADD CONSTRAINT `fk_ann_conv` FOREIGN KEY (`idAnnonce`) REFERENCES `annonce` (`idAnnonce`),
+  ADD CONSTRAINT `fk_util_conv` FOREIGN KEY (`idUtilisateur`) REFERENCES `users` (`idU`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

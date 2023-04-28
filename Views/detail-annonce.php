@@ -9,7 +9,25 @@
     {
         padding: 1rem;
     }
+
+    .modal-dialog
+    {
+        padding: 9rem 0;
+    }
+
+    .modal-footer .btn-success:hover
+    {
+        background-color: #f2edf3;
+        color: #ff6e14;
+        border: 1px solid #ff6e14;
+    }
    
+    .badge
+    {
+        max-width: 20%;
+        padding: .4rem 0     ;
+        /*border-radius: 20px; */
+    }
 </style>
 
     <div class="container-xxl py-5">
@@ -79,8 +97,44 @@
                                         <div class='card rounded hover-shadow' style="border: none;">
                                             <div class="card" style="width: 95%; margin: auto; border: none;">
                                                 <h3><?=$GLOBALS["lAnnonce"]["titre"]?><p class="float-end h3"><?= number_format($GLOBALS["lAnnonce"]["prix"], 0, ',', ' ')  ?> €<hr></p></h3>
+                                                <?php switch ($GLOBALS["lAnnonce"]["idCategorie"]) {
+                                                    case 1 :?>
+                                                        <span class="badge badge-pill badge-primary">Véhicule &nbsp<i class="fa fa-car" aria-hidden="true"></i></span>
+                                                    <?php break;
+
+                                                    case 2 :?>
+                                                        <span class="badge badge-pill badge-success">Mode &nbsp<i class="fa fa-odnoklassniki" aria-hidden="true"></i></span>
+                                                    <?php break;
+
+                                                    case 3 :?>
+                                                        <span class="badge badge-pill badge-danger">Jeu de société &nbsp<i class="fa fa-gamepad" aria-hidden="true"></i></span>
+                                                    <?php break;
+
+                                                    case 4 :?>
+                                                        <span class="badge badge-pill badge-info">Jeu vidéo &nbsp<i class="fa fa-gamepad" aria-hidden="true"></i></span>
+                                                    <?php break;
+                                                    
+                                                    case 5 :?>
+                                                        <span class="badge badge-pill badge-dark">Livre/BD/Mangas &nbsp<i class="fa fa-book" aria-hidden="true"></i></span>
+                                                    <?php break;
+
+                                                    case 6 :?>
+                                                        <span class="badge badge-pill badge-light">Musique &nbsp<i class="fa fa-music" aria-hidden="true"></i></span>
+                                                    <?php break;
+
+                                                    case 7 :?>
+                                                        <span class="badge badge-pill badge-warning">Sport &nbsp<i class="fa fa-futbol-o" aria-hidden="true"></i></span>
+                                                    <?php break;
+
+                                                    case 8 :?>
+                                                        <span class="badge badge-pill badge-danger">Autres &nbsp<i class="fa fa-arrows-alt" aria-hidden="true"></i></span>
+                                                    <?php break;
+                                                    default:
+                                                        # code...
+                                                        break;
+                                                } ?>
                                                 
-                                                <p class="fw-bold font-monospace" style="font-size: 1.5rem; color: #0E2E50"><?=$GLOBALS["lAnnonce"]["description"]?></p>
+                                                <br><p class="fw-bold font-monospace" style="font-size: 1.5rem; color: #0E2E50"><?=$GLOBALS["lAnnonce"]["description"]?></p>
                                                 <p class="card-text">
                                                     <p style="font-size: .8rem">Publiée par <strong style="color: #0E2E50"><?=$GLOBALS["lAnnonce"]["nomProprietaire"]?> <?=$GLOBALS["lAnnonce"]["prenomProprietaire"]?></strong></p>
                                                     <p style="font-size: .8rem"><?= date("d M, Y  - H:i",strtotime($GLOBALS["lAnnonce"]["dateAjout"]))?></p>
@@ -126,9 +180,9 @@
 
                                         </div>
                                         <div class="modal-footer">
-                                            <input type="submit" class="btn btn-success" name="send" value="Envoyer message">
+                                            <input type="submit" class="btn btn-success" name="send" value="Envoyer message" style="padding: .8rem">
                                             </form>
-                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal" style="padding: .8rem">Fermer</button>
                                         </div>
                                     </div>
                                 </div>

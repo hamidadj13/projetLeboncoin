@@ -37,11 +37,11 @@
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" >
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden " style="min-height: 200px; max-height: 200px; max-width:100%;">
-                                        <a href="<?php echo sprintf("%smodifier-annonce/%s", $GLOBALS['__HOST__'], $annonce['idAnnonce'])?>"><img class="img-fluid" style="max-height: 100%; min-height:100%; width: 100%; object-fit: cover;" src="<?php echo sprintf("%sAssets/%s", $GLOBALS['__HOST__'], $annonce['photo']) ?>" alt="Image de l'annonce"></a>
+                                        <a href="<?php echo sprintf("%sdetails-annonce/%s", $GLOBALS['__HOST__'], ($annonce['idAnnonce'] * 6895))?>"><img class="img-fluid" style="max-height: 100%; min-height:100%; width: 100%; object-fit: cover;" src="<?php echo sprintf("%sAssets/%s", $GLOBALS['__HOST__'], $annonce['photo']) ?>" alt="Image de l'annonce"></a>
                                         <!-- <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Annonce</div> -->
                                     </div>
                                     <div class="p-4 pb-0">
-                                        <a class="d-block h5 mb-2" href="<?php echo sprintf("%sdetails-annonce/%s", $GLOBALS['__HOST__'], $annonce['idAnnonce'])?>"><?php echo sprintf("%s", $annonce['titre']); ?></a>
+                                        <a class="d-block h5 mb-2" href="<?php echo sprintf("%sdetails-annonce/%s", $GLOBALS['__HOST__'], ($annonce['idAnnonce'] * 6895))?>"><?php echo sprintf("%s", $annonce['titre']); ?></a>
                                         <p><i class="fa fa-map-marker-alt text-primary me-2"></i><?php echo sprintf("%s", $annonce['dep']); ?></p>
                                     </div>
                                     <div class="d-flex border-top">

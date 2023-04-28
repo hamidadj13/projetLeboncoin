@@ -10,7 +10,7 @@
         {
             // Je récupére le nom de la vue que je dois charger...
             $this->viewName = $viewName;
-            // Je sais que toujours le dossier qui contiendra les vues et celui Views
+            // Je sais que toujours le dossier qui contiendra les vues et celui Viewsnn
             // $this->parent = construit le chemin en auto vers le dossier contenant les views...
             $this->parent = str_replace("\Controllers", "",__DIR__)."\\Views\\";
 
@@ -40,9 +40,9 @@
             if(isset($_POST) && !empty($_POST))
             {
                 // Form submitted as well
-                $category = $_POST['category'];
+                $category = isset($_POST['category']) ? $_POST['category'] : "";
                 $critere = "%".trim(htmlentities($_POST['what']))."%";
-                $location = $_POST['location'];
+                $location = isset($_POST['location']) ? $_POST['location'] : "";
 
                 // Call model to check if there is some similar post's
 

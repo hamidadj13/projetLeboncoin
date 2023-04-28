@@ -94,7 +94,7 @@
             <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4">
                 <a href="<?php echo $GLOBALS['__HOST__']?>" class="navbar-brand d-flex align-items-center text-center">
                     <h1 class="m-0 text-primary">M2L-COIN</h1>
-                </a>
+                    </a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -121,16 +121,17 @@
                             
                             <?php }else{ ?>
                             <div class="my-auto" style="margin-right: 70px">
-                                <form class="d-flex my-auto" role="search">
-                                    <input class="form-control me-2"  type="search" placeholder="Rechercher un article" aria-label="Search">
+                                <form class="d-flex my-auto" method= "POST" action="<?php echo $GLOBALS['__HOST__']?>search">
+                                    <input class="form-control me-2" name="what" type="search" placeholder="Rechercher un article" aria-label="Search">
                                     <button class="btn btn-outline-success" type="submit">Rechercher</button>
                                 </form>
                             </div>
                             <a href="<?php echo $GLOBALS['__HOST__']?>connexion" class="nav-link"><i class="fa fa-user text-primary me-1"></i> Se connecter</a>
                         <?php } ?>
                     </div>
-                    <a href="<?php echo $GLOBALS['__HOST__']?><?= (isset($_SESSION["idU"])) && ($_SESSION != NULL) ? 'deposer-une-annonce' : 'connexion' ?>" class="btn btn-primary px-3 d-none d-lg-flex"><i style="margin-top:2%" class="fa fa-plus me-1"></i> Déposer une annonce</a>
-                </div>
+                    <a href="<?php echo $GLOBALS['__HOST__']?><?= (isset($_SESSION["idU"])) && ($_SESSION != NULL) ? 'deposer-une-annonce' : 'connexion' ?>" class="btn btn-primary px-3 d-none d-lg-flex nav-link"><i style="margin-top:2%" class="fa fa-plus me-1"></i> Nouvelle annonce</a>
+               
+                 </div>
             </nav>
         </div>
     </div>

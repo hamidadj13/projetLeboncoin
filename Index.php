@@ -4,6 +4,7 @@
     include(__DIR__."\\Controllers\\AccountController.php");
     include(__DIR__."\\Controllers\\AnnonceController.php");
     include(__DIR__."\\Controllers\\FavorisController.php");
+    include(__DIR__."\\Controllers\\MessageController.php");
     include(__DIR__."\\Controllers\\SearchController.php");
 
     class Index{
@@ -156,6 +157,17 @@
                         $controller = new SearchController('resultsearch');
                         echo "Load";
                         break;
+
+                    case "mes-messages":
+                        $controller = new MessageController();
+                        $controller->getAllConversations($_SESSION["idU"]);
+                        break;
+
+                    case "nouvelle-conversation":
+                        $controller = new MessageController();
+                        $controller->newConversation();
+                        break;
+
 
                     default: // TODO:
                         echo "URL NOT FOUND 404 !";

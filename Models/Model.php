@@ -454,7 +454,7 @@
             if($this->connection != NULL)
             {
                 // Connexion vers la base de données OK !
-                $queryString = "SELECT * FROM `message` where idSender = ? and idAnnonce = ?";             
+                $queryString = "SELECT * FROM `conversation` where idQ = ? and idAnnonce = ?";             
                 $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
                 $queryPrepared->execute(array($idS, $idA));
                 $resultSet = $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
@@ -559,4 +559,153 @@
             }
         }
 
+        //----------------MESSAGES-------------MESSAGES------------------MESSAGES-------------
+        //Insérer un nouveau message
+        public function insertNewMsg(array $array)
+        {
+            // J'ouvre la connexion vers ma base de données...
+            $this->connectToBDD();
+            if($this->connection != NULL)
+            {
+                // Connexion vers la base de données OK !
+                $queryString = "INSERT INTO `message` (idSender,idReceiver, idC,contenu) VALUES (?,?,?,?)"; 
+                $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+                $resultSet = $queryPrepared->execute($array);
+
+                if($resultSet)
+                {
+                    return TRUE;
+                }
+                return FALSE;
+                
+            }
+        }
+
+        //Insérer une nouvelle conversation
+        public function insertNewConv(array $array)
+        {
+            // J'ouvre la connexion vers ma base de données...
+            $this->connectToBDD();
+            if($this->connection != NULL)
+            {
+                // Connexion vers la base de données OK !
+                $queryString = "INSERT INTO `conversation` (idAnnonce, idQ, idR) VALUES (?,?,?)";
+                $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+                $resultSet = $queryPrepared->execute($array);
+
+                if($resultSet)
+                {
+                    return TRUE;
+                }
+                return FALSE;
+                
+            }
+        }
+
+        //Obtenir l'id de la dernière conversation enregistrée
+        public function getLastIdConv()
+        {
+            // J'ouvre la connexion vers ma base de données...
+            $this->connectToBDD();
+            if($this->connection != NULL)
+            {
+                // Connexion vers la base de données OK !
+                $queryString = "SELECT idConversation FROM `conversation` ORDER BY createdAt DESC LIMIT 1"; 
+                $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+                $queryPrepared->execute();
+                $resultSet = $queryPrepared->fetch(PDO::FETCH_ASSOC);
+
+                if($resultSet)
+                {
+                    return $resultSet["idConversation"];
+                }
+                return FALSE;   
+            }
+        }
+        //Récupérer la liste des conversations 
+        public function getListConv(int $idU)
+        {
+            // J'ouvre la connexion vers ma base de données...
+            $this->connectToBDD();
+            if($this->connection != NULL)
+            {
+                // Connexion vers la base de données OK !
+                $queryString = "SELECT * FROM `conversation` WHERE idQ = ? OR idR = ? ORDER BY createdAt DESC"; 
+                $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+                $queryPrepared->execute(array($idU, $idU));
+                $resultSet = $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
+                 
+                if($resultSet)
+                {
+                    return $resultSet;
+                }
+                return FALSE;
+            }
+        }
+
+        //Récupérer la liste des messages d'une conversation
+        public function getMsgConv(int $idC)
+        {
+            // J'ouvre la connexion vers ma base de données...
+            $this->connectToBDD();
+            if($this->connection != NULL)
+            {
+                // Connexion vers la base de données OK !
+                $queryString = "SELECT * FROM `message` WHERE idC = ? ORDER BY dateEnvoi DESC";
+                $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+                $queryPrepared->execute(array($idC));
+                $resultSet = $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
+                 
+                if($resultSet)
+                {
+                    return $resultSet;
+                }
+                return FALSE;
+            }
+        }
+
+        //Récupérer le dernier message d'une conversation
+        public function getLastMsg(int $idC)
+        {
+            // J'ouvre la connexion vers ma base de données...
+            $this->connectToBDD();
+            if($this->connection != NULL)
+            {
+                // Connexion vers la base de données OK !
+                $queryString = "SELECT * FROM `message` WHERE idC = ? ORDER BY dateEnvoi DESC LIMIT 1";
+                $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+                $queryPrepared->execute(array($idC));
+                $resultSet = $queryPrepared->fetch(PDO::FETCH_ASSOC);
+                 
+                if($resultSet)
+                {
+                    return $resultSet;
+                }
+                return FALSE;
+            }
+        }
+
+        //Récupérer les infos d'une conversation
+        public function getInfosConv(int $idC)
+        {
+            // J'ouvre la connexion vers ma base de données...
+            $this->connectToBDD();
+            if($this->connection != NULL)
+            {
+                // Connexion vers la base de données OK !
+                $queryString = "SELECT * FROM `conversation`";
+                $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+                $queryPrepared->execute(array($idC));
+                $resultSet = $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
+                 
+                if($resultSet)
+                {
+                    return $resultSet;
+                }
+                return FALSE;
+            }
+        }
+
     }
+
+    

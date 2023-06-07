@@ -172,11 +172,13 @@
                                     <div class="modal-content">
                                         <div class="modal-body">
                                             <h5 class="modal-title" id="ModalLabel">Nouveau message</h5>
-                                            <form action="" method="POST">
+                                            <form action="<?=$GLOBALS["__HOST__"] ?>nouvelle-conversation" method="POST">
                                                 <div class="form-group">
                                                     <label for="message-text" class="col-form-label">Message:</label>
                                                     <textarea class="form-control" name="message" id="message-text"></textarea>
                                                 </div>
+                                                <input type="hidden" name="idReceveur" value="<?=$GLOBALS["lAnnonce"]["idUser"]?>">
+                                                <input type="hidden" name="idAnn" value="<?=$GLOBALS["lAnnonce"]["idAnnonce"]?>">
 
                                         </div>
                                         <div class="modal-footer">

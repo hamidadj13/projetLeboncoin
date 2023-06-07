@@ -726,6 +726,274 @@ h1,a
   border: 1px solid #3e4b5b; }
 
 
+/*** Messagerie **/
+.chat-app-wrapper {
+    position: relative;
+    overflow: hidden; }
+    .chat-app-wrapper .chat-list-wrapper {
+      overflow-y: auto;
+      border-right: 1px solid #ebedf2;
+      padding-bottom: 30px; }
+      @media (max-width: 768px) {
+        .chat-app-wrapper .chat-list-wrapper {
+          position: absolute;
+          left: -300px;
+          top: 0;
+          z-index: 99;
+          bottom: 0px;
+          background: #fff;
+          width: 300px;
+          height: 100%;
+          border-right: none;
+          -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+          -webkit-transition-property: "box-shadow", "left", "box-shadow";
+          transition-property: "box-shadow", "left", "box-shadow";
+          transition-property: "box-shadow", "left"; }
+          .chat-app-wrapper .chat-list-wrapper.menu-open {
+            left: 0px;
+            -webkit-box-shadow: 6px 4px 15px -5px rgba(0, 0, 0, 0.25);
+            box-shadow: 6px 4px 15px -5px rgba(0, 0, 0, 0.25); } }
+      .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper {
+        padding-top: 20px;
+        padding-bottom: 40px; }
+        .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper .list-item {
+          display: grid;
+          grid-template-columns: 45px auto auto;
+          grid-template-rows: 30px auto;
+          padding: 15px 20px;
+          -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+          -webkit-transition-property: "background";
+          transition-property: "background"; }
+          .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper .list-item .profile-image {
+            position: relative; }
+            .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper .list-item .profile-image .dot-indicator {
+              position: absolute;
+              top: 15px;
+              right: -5px;
+              z-index: 1;
+              height: 12px;
+              width: 12px;
+              border: 2px solid #fff; }
+         
+          .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper .list-item .chat-text {
+            padding-left: 20px;
+            grid-column-start: 2;
+            grid-column-end: 4;
+            grid-row-start: 2;
+            margin-bottom: 0; }
+          .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper .list-item:hover {
+            background: rgba(182, 109, 255, 0.1);
+            cursor: pointer; }
+    .chat-app-wrapper .slide {
+      left: -21px; }
+    .chat-app-wrapper .chat-search-input {
+      padding-top: 30px;
+      padding-bottom: 10px; }
+      .chat-app-wrapper .chat-search-input .form-control, .chat-app-wrapper .chat-search-input .asColorPicker-input, .chat-app-wrapper .chat-search-input .dataTables_wrapper select, .dataTables_wrapper .chat-app-wrapper .chat-search-input select, .chat-app-wrapper .chat-search-input .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-search-input input[type=text],
+      .chat-app-wrapper .chat-search-input .jsgrid .jsgrid-table .jsgrid-filter-row select, .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-search-input select, .chat-app-wrapper .chat-search-input .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number], .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-search-input input[type=number], .chat-app-wrapper .chat-search-input .select2-container--default .select2-selection--single, .select2-container--default .chat-app-wrapper .chat-search-input .select2-selection--single, .chat-app-wrapper .chat-search-input .select2-container--default .select2-selection--single .select2-search__field, .select2-container--default .select2-selection--single .chat-app-wrapper .chat-search-input .select2-search__field, .chat-app-wrapper .chat-search-input .typeahead,
+      .chat-app-wrapper .chat-search-input .tt-query,
+      .chat-app-wrapper .chat-search-input .tt-hint {
+        height: 40px;
+        border-right: none;
+        border-radius: 4px 0px 0px 4px;
+        color: #9c9fa6; }
+      .chat-app-wrapper .chat-search-input .input-group-text {
+        padding: 8px 15px;
+        font-size: 20px;
+        border-radius: 0px 4px 4px 0px; }
+        .chat-app-wrapper .chat-search-input .input-group-text i {
+          color: #9c9fa6; }
+    .chat-app-wrapper .sidebar-spacer {
+      padding-left: 20px;
+      padding-right: 20px; }
+    .chat-app-wrapper .chat-container-wrapper {
+      height: 100%;
+      min-height: 100vh;
+      max-height: 100% s;
+      overflow-y: auto;
+      padding-bottom: 20px;
+      padding: 0 15px 30px 15px; }
+      .chat-app-wrapper .chat-container-wrapper .chat-bubble {
+        margin-top: 30px; }
+        .chat-app-wrapper .chat-container-wrapper .chat-bubble .chat-message {
+          border-radius: 4px;
+          padding: 20px; }
+          .chat-app-wrapper .chat-container-wrapper .chat-bubble .chat-message p:last-child {
+            margin-bottom: 0; }
+        .chat-app-wrapper .chat-container-wrapper .chat-bubble .sender-details {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+          padding-top: 10px; }
+          .chat-app-wrapper .chat-container-wrapper .chat-bubble .sender-details .seen-text {
+            margin-bottom: 0;
+            color: #9c9fa6; }
+        .chat-app-wrapper .chat-container-wrapper .chat-bubble.incoming-chat .chat-message {
+          background: #f2edf3;
+          margin-left: 45px; }
+        .chat-app-wrapper .chat-container-wrapper .chat-bubble.incoming-chat .sender-details .seen-text {
+          padding-left: 10px; }
+        .chat-app-wrapper .chat-container-wrapper .chat-bubble.outgoing-chat .chat-message {
+          background: #b66dff;
+          margin-left: auto;
+          max-width: 290px;
+          margin-right: 45px; }
+          .chat-app-wrapper .chat-container-wrapper .chat-bubble.outgoing-chat .chat-message p {
+            color: #ffffff; }
+        .chat-app-wrapper .chat-container-wrapper .chat-bubble.outgoing-chat .sender-details {
+          -webkit-box-orient: horizontal;
+          -webkit-box-direction: reverse;
+          -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse; }
+          .chat-app-wrapper .chat-container-wrapper .chat-bubble.outgoing-chat .sender-details .seen-text {
+            padding-right: 10px; }
+    .chat-app-wrapper .chat-sidebar {
+      height: 100%;
+      max-height: 100% s;
+      overflow-y: auto;
+      border-left: 1px solid #ebedf2; }
+    .chat-app-wrapper .chat-text-field {
+      border-top: 1px solid #ebedf2;
+      padding: 10px 0; }
+      .chat-app-wrapper .chat-text-field .input-group .input-group-prepend .input-group-text, .chat-app-wrapper .chat-text-field .asColorPicker-wrap .input-group-prepend .input-group-text,
+      .chat-app-wrapper .chat-text-field .input-group .input-group-append .input-group-text,
+      .chat-app-wrapper .chat-text-field .asColorPicker-wrap .input-group-append .input-group-text {
+        border: none;
+        background: #ffffff; }
+      .chat-app-wrapper .chat-text-field .input-group .form-control, .chat-app-wrapper .chat-text-field .asColorPicker-wrap .form-control, .chat-app-wrapper .chat-text-field .input-group .asColorPicker-input, .chat-app-wrapper .chat-text-field .asColorPicker-wrap .asColorPicker-input, .chat-app-wrapper .chat-text-field .input-group .dataTables_wrapper select, .dataTables_wrapper .chat-app-wrapper .chat-text-field .input-group select, .chat-app-wrapper .chat-text-field .asColorPicker-wrap .dataTables_wrapper select, .dataTables_wrapper .chat-app-wrapper .chat-text-field .asColorPicker-wrap select, .chat-app-wrapper .chat-text-field .input-group .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-text-field .input-group input[type=text], .chat-app-wrapper .chat-text-field .asColorPicker-wrap .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-text-field .asColorPicker-wrap input[type=text],
+      .chat-app-wrapper .chat-text-field .input-group .jsgrid .jsgrid-table .jsgrid-filter-row select, .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-text-field .input-group select,
+      .chat-app-wrapper .chat-text-field .asColorPicker-wrap .jsgrid .jsgrid-table .jsgrid-filter-row select, .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-text-field .asColorPicker-wrap select, .chat-app-wrapper .chat-text-field .input-group .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number], .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-text-field .input-group input[type=number], .chat-app-wrapper .chat-text-field .asColorPicker-wrap .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number], .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-text-field .asColorPicker-wrap input[type=number], .chat-app-wrapper .chat-text-field .input-group .select2-container--default .select2-selection--single, .select2-container--default .chat-app-wrapper .chat-text-field .input-group .select2-selection--single, .chat-app-wrapper .chat-text-field .asColorPicker-wrap .select2-container--default .select2-selection--single, .select2-container--default .chat-app-wrapper .chat-text-field .asColorPicker-wrap .select2-selection--single, .chat-app-wrapper .chat-text-field .input-group .select2-container--default .select2-selection--single .select2-search__field, .select2-container--default .select2-selection--single .chat-app-wrapper .chat-text-field .input-group .select2-search__field, .chat-app-wrapper .chat-text-field .asColorPicker-wrap .select2-container--default .select2-selection--single .select2-search__field, .select2-container--default .select2-selection--single .chat-app-wrapper .chat-text-field .asColorPicker-wrap .select2-search__field, .chat-app-wrapper .chat-text-field .input-group .typeahead, .chat-app-wrapper .chat-text-field .asColorPicker-wrap .typeahead,
+      .chat-app-wrapper .chat-text-field .input-group .tt-query,
+      .chat-app-wrapper .chat-text-field .asColorPicker-wrap .tt-query,
+      .chat-app-wrapper .chat-text-field .input-group .tt-hint,
+      .chat-app-wrapper .chat-text-field .asColorPicker-wrap .tt-hint {
+        height: 45px;
+        border: none; }
+        .chat-app-wrapper .chat-text-field .input-group .form-control:focus, .chat-app-wrapper .chat-text-field .asColorPicker-wrap .form-control:focus, .chat-app-wrapper .chat-text-field .input-group .asColorPicker-input:focus, .chat-app-wrapper .chat-text-field .asColorPicker-wrap .asColorPicker-input:focus, .chat-app-wrapper .chat-text-field .input-group .dataTables_wrapper select:focus, .dataTables_wrapper .chat-app-wrapper .chat-text-field .input-group select:focus, .chat-app-wrapper .chat-text-field .asColorPicker-wrap .dataTables_wrapper select:focus, .dataTables_wrapper .chat-app-wrapper .chat-text-field .asColorPicker-wrap select:focus, .chat-app-wrapper .chat-text-field .input-group .jsgrid .jsgrid-table .jsgrid-filter-row input:focus[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-text-field .input-group input:focus[type=text], .chat-app-wrapper .chat-text-field .asColorPicker-wrap .jsgrid .jsgrid-table .jsgrid-filter-row input:focus[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-text-field .asColorPicker-wrap input:focus[type=text],
+        .chat-app-wrapper .chat-text-field .input-group .jsgrid .jsgrid-table .jsgrid-filter-row select:focus, .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-text-field .input-group select:focus,
+        .chat-app-wrapper .chat-text-field .asColorPicker-wrap .jsgrid .jsgrid-table .jsgrid-filter-row select:focus, .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-text-field .asColorPicker-wrap select:focus, .chat-app-wrapper .chat-text-field .input-group .jsgrid .jsgrid-table .jsgrid-filter-row input:focus[type=number], .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-text-field .input-group input:focus[type=number], .chat-app-wrapper .chat-text-field .asColorPicker-wrap .jsgrid .jsgrid-table .jsgrid-filter-row input:focus[type=number], .jsgrid .jsgrid-table .jsgrid-filter-row .chat-app-wrapper .chat-text-field .asColorPicker-wrap input:focus[type=number], .chat-app-wrapper .chat-text-field .input-group .select2-container--default .select2-selection--single:focus, .select2-container--default .chat-app-wrapper .chat-text-field .input-group .select2-selection--single:focus, .chat-app-wrapper .chat-text-field .asColorPicker-wrap .select2-container--default .select2-selection--single:focus, .select2-container--default .chat-app-wrapper .chat-text-field .asColorPicker-wrap .select2-selection--single:focus, .chat-app-wrapper .chat-text-field .input-group .select2-container--default .select2-selection--single .select2-search__field:focus, .select2-container--default .select2-selection--single .chat-app-wrapper .chat-text-field .input-group .select2-search__field:focus, .chat-app-wrapper .chat-text-field .asColorPicker-wrap .select2-container--default .select2-selection--single .select2-search__field:focus, .select2-container--default .select2-selection--single .chat-app-wrapper .chat-text-field .asColorPicker-wrap .select2-search__field:focus, .chat-app-wrapper .chat-text-field .input-group .typeahead:focus, .chat-app-wrapper .chat-text-field .asColorPicker-wrap .typeahead:focus,
+        .chat-app-wrapper .chat-text-field .input-group .tt-query:focus,
+        .chat-app-wrapper .chat-text-field .asColorPicker-wrap .tt-query:focus,
+        .chat-app-wrapper .chat-text-field .input-group .tt-hint:focus,
+        .chat-app-wrapper .chat-text-field .asColorPicker-wrap .tt-hint:focus {
+          background: #ffffff; }
+          .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper {
+            padding-top: 20px;
+            padding-bottom: 40px; }
+
+            .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper .list-item {
+                display: grid;
+                grid-template-columns: 45px auto auto;
+                grid-template-rows: 30px auto;
+                padding: 15px 20px;
+                -webkit-transition-duration: 0.5s;
+                transition-duration: 0.5s;
+                -webkit-transition-property: "background";
+                transition-property: "background"; }
+                .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper .list-item .profile-image {
+                  position: relative; }
+                  .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper .list-item .profile-image .dot-indicator {
+                    position: absolute;
+                    top: 15px;
+                    right: -5px;
+                    z-index: 1;
+                    height: 12px;
+                    width: 12px;
+                    border: 2px solid #fff; }
+                .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper .list-item .user-name {
+                  color: #0E2E50;
+                  padding-left: 20px;
+                  margin-bottom: 0; }
+                .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper .list-item .chat-time {
+                    color: #9c9fa6;
+                    text-align: right;
+                    font-size: .8rem; 
+                    display: block;
+                    margin-top: 20px;}
+                .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper .list-item .chat-text {
+                  padding-left: 20px;
+                  grid-column-start: 2;
+                  grid-column-end: 4;
+                  grid-row-start: 2;
+                  margin-bottom: 0; }
+                .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper .list-item:hover {
+                  background: rgba(182, 109, 255, 0.1);
+                  cursor: pointer; }
+
+                  .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper .list-item .user-name, .chat-app-wrapper .chat-list-wrapper .chat-list-item-wrapper .list-item .horizontal-menu .top-navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .navbar-dropdown .dropdown-item .user-name {
+                    max-width: 200px;
+                    overflow: hidden;
+                    text-overflow: ellipsis; }
+
+                  .data-list {
+                    width: 100%;
+                    overflow: auto; }
+                    .data-list .list-item {
+                      display: -webkit-box;
+                      display: -ms-flexbox;
+                      display: flex;
+                      -webkit-box-align: center;
+                      -ms-flex-align: center;
+                      align-items: center;
+                      -ms-flex-wrap: nowrap;
+                      flex-wrap: nowrap;
+                      width: 100%;
+                      padding: 10px;
+                      border-bottom: 1px solid #ebedf2; }
+                      .data-list .list-item:last-child {
+                        border-bottom: none; }
+                      .data-list .list-item .graph {
+                        margin-left: auto;
+                        width: 110px; }
+
+                        .list-item {
+                            display: -webkit-box;
+                            display: -ms-flexbox;
+                            display: flex;
+                            width: 100%;
+                            padding: 20px 0;
+                            border-bottom: 1px solid #ebedf2; }
+                            .list-item:first-child {
+                              padding-top: 30px; }
+                            .list-item:last-child {
+                              border-bottom: none; }
+                            .list-item .preview-image {
+                              max-width: 80px;
+                              width: 80px;
+                              min-width: 80px; }
+                              .list-item .preview-image img {
+                                display: block;
+                                margin: auto; }
+                            .list-item .content {
+                              width: calc(100% - 80px);
+                              padding-right: 30px; }
+                              .list-item .content .user-name {
+                                margin-bottom: 0;
+                                margin-right: 15px;
+                                color: #9c9fa6;
+                                white-space: nowrap; }
+                              .list-item .content .time {
+                                color: #9c9fa6;
+                                margin-bottom: 3px; }
+                              .list-item .content .product-name {
+                                font-weight: 500;
+                                text-overflow: ellipsis;
+                                overflow: hidden;
+                                max-width: 100%;
+                                white-space: nowrap; }
+                              .list-item .content .review-text {
+                                margin-bottom: 0;
+                                font-weight: 300;
+                                text-overflow: ellipsis;
+                                overflow: hidden;
+                                max-width: 100%;
+                                white-space: nowrap;
+                                max-width: 95%; }
 /*** Navbar ***/
 .nav-bar {
     position: relative;

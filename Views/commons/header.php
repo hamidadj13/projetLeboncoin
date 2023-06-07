@@ -105,7 +105,7 @@
                         
                             <a href="<?php echo $GLOBALS['__HOST__']?>mes-annonces" class="nav-link "><i class="fa fa-list text-primary me-1"></i>Mes annonces</a>
                             <a href="<?php echo $GLOBALS['__HOST__']?>mes-favoris" class="nav-link"><i class="fa fa-heart text-primary me-1"></i> Mes favoris</a>
-                            <a href="<?php echo $GLOBALS['__HOST__']?>messages" class="nav-link"><i class="fa fa-comments text-primary me-1" aria-hidden="true"></i> Mes messages</a>
+                            <a href="<?php echo $GLOBALS['__HOST__']?>mes-messages" class="nav-link"><i class="fa fa-comments text-primary me-1" aria-hidden="true"></i> Mes messages</a>
                             <!-- <a href="<?php //echo $GLOBALS['__HOST__']?>log-out" class="nav-link"><i class="fa fa-user text-primary me-1"></i> Se déconnecter</a> -->
                         
                             <li class="nav-item dropdown my-auto">

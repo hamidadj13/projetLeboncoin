@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 28 avr. 2023 à 14:56
+-- Généré le : sam. 10 juin 2023 à 23:00
 -- Version du serveur : 5.7.36
 -- Version de PHP : 8.1.0
 
@@ -91,11 +91,21 @@ DROP TABLE IF EXISTS `conversation`;
 CREATE TABLE IF NOT EXISTS `conversation` (
   `idConversation` int(5) NOT NULL AUTO_INCREMENT,
   `idAnnonce` int(5) NOT NULL,
-  `idUtilisateur` int(5) NOT NULL,
+  `idQ` int(5) NOT NULL,
+  `idR` int(5) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idConversation`),
   KEY `fk_ann_conv` (`idAnnonce`),
-  KEY `fk_util_conv` (`idUtilisateur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `fk_utilQ_conv` (`idQ`),
+  KEY `fk_utilR_conv` (`idR`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `conversation`
+--
+
+INSERT INTO `conversation` (`idConversation`, `idAnnonce`, `idQ`, `idR`, `createdAt`) VALUES
+(1, 7, 1, 5, '2023-05-27 15:09:03');
 
 -- --------------------------------------------------------
 
@@ -109,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `favoris` (
   `idUtilisateur` int(5) NOT NULL,
   `idA` int(5) NOT NULL,
   PRIMARY KEY (`idFavoris`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `favoris`
@@ -252,7 +262,15 @@ CREATE TABLE IF NOT EXISTS `message` (
   `contenu` text NOT NULL,
   `dateEnvoi` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idM`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `message`
+--
+
+INSERT INTO `message` (`idM`, `idSender`, `idReceiver`, `idC`, `contenu`, `dateEnvoi`) VALUES
+(1, 1, 5, 1, 'Bonjour', '2023-05-27 15:09:03'),
+(2, 5, 1, 1, 'Oui bonjour !', '2023-06-10 21:24:06');
 
 -- --------------------------------------------------------
 
@@ -297,7 +315,8 @@ ALTER TABLE `annonce`
 --
 ALTER TABLE `conversation`
   ADD CONSTRAINT `fk_ann_conv` FOREIGN KEY (`idAnnonce`) REFERENCES `annonce` (`idAnnonce`),
-  ADD CONSTRAINT `fk_util_conv` FOREIGN KEY (`idUtilisateur`) REFERENCES `users` (`idU`);
+  ADD CONSTRAINT `fk_utilQ_conv` FOREIGN KEY (`idQ`) REFERENCES `users` (`idU`),
+  ADD CONSTRAINT `fk_utilR_conv` FOREIGN KEY (`idR`) REFERENCES `users` (`idU`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

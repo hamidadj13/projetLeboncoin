@@ -400,8 +400,6 @@
                 return NULL;
             }
         }
-
-
         
         //Récupère des annonces selon des critères
         public function getAnnoncesCritaria($critere, $cat, $loc)
@@ -651,7 +649,7 @@
             if($this->connection != NULL)
             {
                 // Connexion vers la base de données OK !
-                $queryString = "SELECT * FROM `message` WHERE idC = ? ORDER BY dateEnvoi DESC";
+                $queryString = "SELECT * FROM `message` WHERE idC = ? ORDER BY dateEnvoi ASC";
                 $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
                 $queryPrepared->execute(array($idC));
                 $resultSet = $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
@@ -693,10 +691,10 @@
             if($this->connection != NULL)
             {
                 // Connexion vers la base de données OK !
-                $queryString = "SELECT * FROM `conversation`";
+                $queryString = "SELECT * FROM `conversation` WHERE idConversation = ?";
                 $queryPrepared = $this->connection->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
                 $queryPrepared->execute(array($idC));
-                $resultSet = $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
+                $resultSet = $queryPrepared->fetch(PDO::FETCH_ASSOC);
                  
                 if($resultSet)
                 {

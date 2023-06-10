@@ -127,12 +127,9 @@
                         $idA = $urlSplited[(count($urlSplited) -2)]; // On accède ensuite à l'id de l'annonce
                         $route = $urlSplited[(count($urlSplited) -1)]; // On accède à la route pour la redirection
 
-                        
                         $idU = (int)$idU;
                         $idA = (int)$idA;
 
-                        
-                        
                         $controller = new FavorisController();
                         $controller->actionSurFavoris($idU, $idA, $route);
                         break;    
@@ -161,12 +158,31 @@
                     case "mes-messages":
                         $controller = new MessageController();
                         $controller->getAllConversations($_SESSION["idU"]);
+                        $controller->setViewName("messages");
+                        $controller->loadView();
                         break;
 
                     case "nouvelle-conversation":
                         $controller = new MessageController();
                         $controller->newConversation();
                         break;
+
+                    case "nouveau-message":
+                        $controller = new MessageController();
+                        $controller->newMsg();
+                        break;    
+
+                    case preg_match("/conversation.*/", strtolower($root)) ? true : false:// TODO:
+                        $urlSplited = explode('/', $_SERVER['REQUEST_URI']) ; //On divise le chemin selon le critère "/"
+                        $a = $urlSplited[(count($urlSplited) -1)]; // On accède ensuite à l'id de l'annonce
+                        $GLOBALS['lidC'] = (int)$a;
+
+                        
+                        $controller = new MessageController();
+                        $controller->getListMessByConv($GLOBALS["lidC"]);
+                        $controller->setViewName("messages");
+                        $controller->loadView();
+                        break;  
 
 
                     default: // TODO:

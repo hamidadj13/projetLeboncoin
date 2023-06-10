@@ -31,6 +31,11 @@
             require_once($this->parent."commons\\footer.php");
         }
 
+        public function setViewName($name)
+        {
+            $this->viewName = $name;
+        }
+
         public function newConversation()
         {
             //var_dump($_POST) ; die();
@@ -121,21 +126,205 @@
                     $result2 = $model->getLastMsg($uneConv["idConversation"]);
                     $maTabMes[$uneConv["idConversation"]] = $result2;
 
-                    $idCorrespondant = ($result2["idSender"] == $id) ? $result2["idSender"] : $result2["idReceiver"];
-                    $result3 = $model->getUserById($idCorrespondant); 
-                    $maTabUtil[$uneConv["idConversation"]] = $result3;
+                    $vraiIdC = $uneConv["idConversation"];
+                    $result3 = $model->getInfosConv($vraiIdC);
+
+                    if ($result3["idQ"] == $_SESSION["idU"]) 
+                    {
+                        $dest = $result3["idR"];
+                    }
+                    else if ($result3["idR"] == $_SESSION["idU"])
+                    {
+                        $dest = $result3["idQ"];
+                    }
+
+                    $result4 = $model->getUserById($dest);
+
+                    $maTabUtil[$uneConv["idConversation"]] = $result4;
                 }
-                //var_dump($maTabMes, $maTabUtil ); die();
                 $GLOBALS["maTabMes"] = $maTabMes;
                 $GLOBALS["maTabUtil"] = $maTabUtil;
 
-                $this->viewName = "messages";
-                $this->loadView();
             }
             else 
             {
-                echo "Aucune conversation"; die();
+                $_SESSION["message"] = "Vous n'avez aucune conversation !! ";
+                $_SESSION["status"] = "info";
+                $_SESSION["icone"] = "fa-info-circle";
+                header(sprintf("Location: %smes-messages",$GLOBALS['__HOST__']));
+                exit();
             } 
                     
+        }
+
+        public function getListMessByConv(int $idC)
+        {
+            if (is_numeric($idC)) 
+            {
+                $vraiIdC = $idC / 7649 ;
+
+                if ($vraiIdC == 0) 
+                {
+                    $_SESSION["message"] = "Impossible d'afficher une conversation qui n'existe pas !! ";
+                    $_SESSION["status"] = "danger";
+                    $_SESSION["icone"] = "fa-exclamation-circle";
+                    header(sprintf("Location: %smes-messages",$GLOBALS['__HOST__']));
+                    exit();
+                } 
+                else if(!is_int($vraiIdC))
+                {
+                    $_SESSION["message"] = "Impossible d'afficher une conversation qui n'existe pas !! ";
+                    $_SESSION["status"] = "danger";
+                    $_SESSION["icone"] = "fa-exclamation-circle";
+                    header(sprintf("Location: %smes-messages",$GLOBALS['__HOST__']));
+                    exit(); 
+                }
+                else
+                {
+                    $id = $_SESSION["idU"];
+                    $model = new Model();
+                    $GLOBALS["listConv"] = $result = $model->getListConv($id);
+                    
+                    if ($result) 
+                    {
+                        $maTabMes = array();
+                        $maTabUtil = array();
+
+                        foreach ($result as $uneConv) 
+                        {
+                            $result2 = $model->getLastMsg($uneConv["idConversation"]);
+                            $maTabMes[$uneConv["idConversation"]] = $result2;
+
+                            $vraiIdC = $uneConv["idConversation"];
+                            $result3 = $model->getInfosConv($vraiIdC);
+
+                            if ($result3["idQ"] == $_SESSION["idU"]) 
+                            {
+                                $dest = $result3["idR"];
+                            }
+                            else if ($result3["idR"] == $_SESSION["idU"])
+                            {
+                                $dest = $result3["idQ"];
+                            }
+
+                            $result4 = $model->getUserById($dest);
+
+                            $maTabUtil[$uneConv["idConversation"]] = $result4;
+                        }
+                        //var_dump($maTabMes, $maTabUtil ); die();
+                        $GLOBALS["maTabMes"] = $maTabMes;
+                        $GLOBALS["maTabUtil"] = $maTabUtil;
+
+
+                        $result4 = $model->getMsgConv($vraiIdC);
+
+                        //var_dump($result4); die();
+
+                        if ($result4) 
+                        {
+                            $tabInfoSender= [];
+
+                            foreach ($result4 as $leMess) 
+                            {
+                                $result5 = $model->getUserById($leMess["idSender"]);
+                                $tabInfoSender[$leMess["idM"]] = $result5;
+                            }
+
+                            $GLOBALS["listMes"] = $result4; //Liste des messages de la conversation
+                            $GLOBALS["currentIdConv"] = $vraiIdC; //l'id de la conversation courante
+
+                            $result6 = $model->getInfosConv($vraiIdC);
+
+                            if ($result6["idQ"] == $_SESSION["idU"]) 
+                            {
+                                $GLOBALS["destinataire"] = $result6["idR"];
+                            }
+                            else if ($result6["idR"] == $_SESSION["idU"])
+                            {
+                                $GLOBALS["destinataire"] = $result6["idQ"];
+                            }
+
+                            $GLOBALS["tabInfoSender"] = $tabInfoSender;
+
+                            //Gestion de la partie annonce
+                            $idAnn = $result6["idAnnonce"];
+
+                            $result7 = $model->getAnnonceById($idAnn);
+                            if ($result7) 
+                            {
+                                $GLOBALS["infoAnn"] = $result7;
+                            } 
+                            else 
+                            {
+                                $GLOBALS["infoAnn"] = NULL;
+                            }
+                            
+    
+                        }
+                        else
+                        {
+                            $GLOBALS["listMes"] = NULL;
+                        }
+
+                        $this->viewName = "messages";
+                        $this->loadView();
+                    }
+                    else 
+                    {
+                        $_SESSION["message"] = "Vous n'avez aucune conversation !! ";
+                        $_SESSION["status"] = "info";
+                        $_SESSION["icone"] = "fa-info-circle";
+                        header(sprintf("Location: %smes-messages",$GLOBALS['__HOST__']));
+                        exit();
+                    } 
+                }
+            }
+        }
+            
+        public function newMsg()
+        {
+            if (isset($_POST)) 
+            {
+                $idC = (int)$_POST["idConv"];
+
+                if((isset($_POST["message"])) && (trim($_POST["message"] != "")))
+                {
+                    $message = trim(htmlspecialchars($_POST["message"]));
+                    $destinataire = (int)$_POST["destinataire"];
+                    $expediteur = $_SESSION["idU"]; 
+
+                    $array = [$expediteur, $destinataire, $idC, $message];
+
+                    $model = new Model();
+
+                    $result = $model->insertNewMsg($array);
+                    
+                    if ($result) 
+                    {
+                        $_SESSION["message"] = "Message envoyé avec succès !! ";
+                        $_SESSION["status"] = "success";
+                        $_SESSION["icone"] = "fa-check-circle";
+                        header(sprintf("Location: %sconversation/%s",$GLOBALS['__HOST__'], ($idC * 7649)));
+                        exit();
+                    } 
+                    else 
+                    {
+                        $_SESSION["message"] = "Une erreur inattendue est survenue lors le l'envoi du message. Veuillez réessayer !! ";
+                        $_SESSION["status"] = "danger";
+                        $_SESSION["icone"] = "fa-exclamation-circle";
+                        header(sprintf("Location: %sconversation/%s",$GLOBALS['__HOST__'], ($idC * 7649)));
+                        exit();
+                    }
+                    
+                }
+                else 
+                {
+                    $_SESSION["message"] = "Veuillez insérer un message !! ";
+                    $_SESSION["status"] = "danger";
+                    $_SESSION["icone"] = "fa-exclamation-circle";
+                    header(sprintf("Location: %sconversation/%s",$GLOBALS['__HOST__'], ($idC * 7649)));
+                    exit();
+                }
+            }
         }
     }

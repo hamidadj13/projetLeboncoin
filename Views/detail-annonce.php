@@ -1,4 +1,4 @@
-
+<?php if(isset($_SESSION["idU"])  && ($_SESSION["idU"] != NULL)) { ?>
 <style>
     body
     {
@@ -197,3 +197,14 @@
             </div>
         </div>   
     </div>
+
+<?php 
+    }
+    else 
+    {
+        $_SESSION["message"] = "Veuillez vous connecter pour accéder à votre compte.";
+        $_SESSION["status"] = "dark";
+        $_SESSION["icone"] = "fa-check-circle"; ?>
+        <script>window.location.replace("http://127.0.0.1/projetLeboncoin/connexion")</script>
+    <?php } 
+?>    

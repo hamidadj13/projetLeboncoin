@@ -184,6 +184,8 @@
                     $id = $_SESSION["idU"];
                     $model = new Model();
                     $GLOBALS["listConv"] = $result = $model->getListConv($id);
+
+                    
                     
                     if ($result) 
                     {
@@ -195,8 +197,8 @@
                             $result2 = $model->getLastMsg($uneConv["idConversation"]);
                             $maTabMes[$uneConv["idConversation"]] = $result2;
 
-                            $vraiIdC = $uneConv["idConversation"];
-                            $result3 = $model->getInfosConv($vraiIdC);
+                            $vraiIdCTraitement = $uneConv["idConversation"];
+                            $result3 = $model->getInfosConv($vraiIdCTraitement);
 
                             if ($result3["idQ"] == $_SESSION["idU"]) 
                             {
@@ -215,8 +217,9 @@
                         $GLOBALS["maTabMes"] = $maTabMes;
                         $GLOBALS["maTabUtil"] = $maTabUtil;
 
-
                         $result4 = $model->getMsgConv($vraiIdC);
+
+                        //var_dump($result4); die();
 
                         //var_dump($result4); die();
 

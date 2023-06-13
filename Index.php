@@ -193,7 +193,8 @@
             {
                 // Si je suis dans le ELSE je dois aller vers l'HOME...
                 // Cas ou on doit redériger vers la page d'accueil;
-                $controller = new LandingController("home");
+                $controller = new LandingController();
+                $controller->getAnnonces();
             }
         }
     }

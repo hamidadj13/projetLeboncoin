@@ -5,7 +5,7 @@
         private $viewName; // le nom de la vue
         private $parent;
 
-        public function __construct($viewName)
+        public function __construct($viewName = NULL)
         {
             // Je récupére le nom de la vue que je dois charger...
             $this->viewName = $viewName;
@@ -16,8 +16,6 @@
             $modele = new Model();
             $GLOBALS["locations"] = $modele->getAllLocations();
             $GLOBALS["categories"] = $modele->getAllCategories();
-            $GLOBALS["lesAnnonces"] = $modele->getAllAnnonces();
-            $this->loadView();
 
         }
         
@@ -29,6 +27,22 @@
             // Etant donné que notre footer ( pied ) ne changera jamais entrre les pages alors
             require_once($this->parent."commons\\footer.php");
         }
+
+        public function getAnnonces()
+        {
+            $model = new Model();
+            $GLOBALS["lesAnnonces"] = $model->getAllAnnonces();
+
+            $this->viewName = "home";
+            $this->loadView();
+        }
+
+        public function setViewName(string $viewName)
+        {
+            $this->viewName = $viewName;
+        }
+
     }
 
+    
 ?>
